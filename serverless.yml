@@ -1,0 +1,28 @@
+# Welcome to Serverless!
+#
+service: test-protobuf
+frameworkVersion: ">=1.28.0 <2.0.0"
+
+provider:
+  name: aws
+  runtime: go1.x
+  role: "arn:aws:iam::503635641501:role/service-role/lambda-basic"
+  stage: dev
+
+# you can define service wide environment variables here
+#environment:
+#   ENV: value1
+
+package:
+ exclude:
+   - ./**
+ include:
+   - ./server
+
+functions:
+  server:
+    handler: server
+    events:
+      - http:
+          path: /server
+          method: get
